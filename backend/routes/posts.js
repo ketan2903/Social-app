@@ -3,7 +3,6 @@ const Post = require("../models/Post");
 const auth = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
-// CREATE POST WITH IMAGE
 router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
     const { text } = req.body;
@@ -28,7 +27,6 @@ router.post("/", auth, upload.single("image"), async (req, res) => {
   }
 });
 
-// GET ALL POSTS
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
@@ -38,7 +36,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// LIKE / UNLIKE POST
 router.put("/:id/like", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -59,7 +56,6 @@ router.put("/:id/like", auth, async (req, res) => {
   }
 });
 
-// COMMENT ON POST
 router.post("/:id/comment", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
